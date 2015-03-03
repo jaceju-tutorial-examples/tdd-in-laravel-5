@@ -52,4 +52,16 @@ class PostRepositoryTest extends TestCase
             $i -= 1;
         }
     }
+
+    public function testCreatePost()
+    {
+        $latestId = self::POST_COUNT + 1;
+
+        $post = $this->posts->create([
+            'title' => 'subject ' . $latestId,
+            'body'  => 'body ' . $latestId,
+        ]);
+
+        $this->assertEquals(self::POST_COUNT + 1, $post->id);
+    }
 }

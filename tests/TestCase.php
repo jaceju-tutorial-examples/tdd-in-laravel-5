@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
+
 class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
 	/**
@@ -16,4 +18,22 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 		return $app;
 	}
 
+    protected function initDatabase()
+    {
+        config([
+            'database.default' => 'sqlite',
+            'database.connections.sqlite' => [
+                'driver'    => 'sqlite',
+                'database'  => ':memory:',
+                'prefix'    => '',
+            ],
+        ]);
+        Artisan::call('migrate');
+        Artisan::call('db:seed');
+    }
+
+    protected function resetDatabase()
+    {
+        Artisan::call('migrate:reset');
+    }
 }

@@ -1,11 +1,17 @@
 <?php namespace App\Http\Controllers;
 
+use App\Repositories\PostRepository;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PostController extends Controller {
+
+    protected $post;
+
+    public function __construct(PostRepository $post)
+    {
+        $this->post = $post;
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -14,7 +20,8 @@ class PostController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		$posts = $this->post->latest10();
+        return view('post.index', compact('posts'));
 	}
 
 	/**

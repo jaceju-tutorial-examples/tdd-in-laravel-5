@@ -2,7 +2,9 @@
 
 use App\Repositories\PostRepository;
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Redirect;
 
 class PostController extends Controller {
 
@@ -31,17 +33,19 @@ class PostController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('post.create');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return Response
+     */
+	public function store(Request $request)
 	{
-		//
+        $this->post->create($request->all());
+        return Redirect::route('posts.index');
 	}
 
 	/**

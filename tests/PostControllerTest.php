@@ -59,4 +59,10 @@ class PostControllerTest extends TestCase {
         $this->assertSessionHasErrors();
         $this->assertResponseStatus(302); // Should redirect to previous url
     }
+
+    public function testCsrfFailed()
+    {
+        $this->call('POST', 'posts');
+        $this->assertResponseStatus(500);
+    }
 }

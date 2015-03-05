@@ -47,4 +47,16 @@ class PostControllerTest extends TestCase {
 
         $this->assertRedirectedToRoute('posts.index');
     }
+
+    public function testCreatePostFails()
+    {
+        Session::start();
+        $this->call('POST', 'posts', [
+            '_token' => csrf_token(),
+        ]);
+
+        $this->assertHasOldInput();
+        $this->assertSessionHasErrors();
+        $this->assertResponseStatus(302); // Should redirect to previous url
+    }
 }

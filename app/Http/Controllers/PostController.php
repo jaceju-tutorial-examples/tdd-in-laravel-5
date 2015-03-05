@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Repositories\PostRepository;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -39,10 +40,10 @@ class PostController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param PostRequest $request
      * @return Response
      */
-	public function store(Request $request)
+	public function store(PostRequest $request)
 	{
         $this->post->create($request->all());
         return Redirect::route('posts.index');

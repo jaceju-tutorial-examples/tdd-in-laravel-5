@@ -5,3 +5,7 @@ Route::get('/', function () {
 });
 
 Route::resource('posts', 'PostController');
+
+Route::controllers([
+   'auth' => 'Auth\AuthController',
+]);

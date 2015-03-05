@@ -33,7 +33,20 @@ class AuthControllerTest extends TestCase
 
     public function testLogout()
     {
+        $this->userLoggedIn();
 
+        // Mock Auth Guard Object
+        $guardMock = Mockery::mock('Illuminate\Auth\Guard');
+        $this->app->instance('Illuminate\Contracts\Auth\Guard', $guardMock);
+
+        /* @see App\Http\Middleware\RedirectIfAuthenticated */
+        $guardMock
+            ->shouldReceive('logout')
+            ->once();
+
+        $this->call('GET', 'auth/logout');
+
+        $this->assertRedirectedTo('/');
     }
 
     public function testRegister()

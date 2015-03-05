@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Support\Facades\Artisan;
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase {
@@ -35,5 +36,10 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
     protected function resetDatabase()
     {
         Artisan::call('migrate:reset');
+    }
+
+    protected function userLoggedIn()
+    {
+        $this->be(new User(['email' => 'jaceju@gmail.com']));
     }
 }

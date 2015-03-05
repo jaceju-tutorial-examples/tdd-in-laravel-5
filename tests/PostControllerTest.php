@@ -80,8 +80,4 @@ class PostControllerTest extends TestCase {
         $this->assertResponseStatus(500);
     }
 
-    protected function userLoggedIn()
-    {
-        $this->be(new User(['email' => 'jaceju@gmail.com']));
-    }
 }

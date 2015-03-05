@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Support\Facades\Session;
 
 class PostControllerTest extends TestCase {
@@ -9,6 +10,8 @@ class PostControllerTest extends TestCase {
     public function setUp()
     {
         parent::setUp();
+
+        Session::start();
         $this->postMock = Mockery::mock('App\Repositories\PostRepository');
         $this->app->instance('App\Repositories\PostRepository', $this->postMock);
     }
@@ -34,6 +37,8 @@ class PostControllerTest extends TestCase {
 
     public function testCreatePostSuccess()
     {
+        $this->userLoggedIn();
+
         $this->postMock
             ->shouldReceive('create')
             ->once();
@@ -48,9 +53,18 @@ class PostControllerTest extends TestCase {
         $this->assertRedirectedToRoute('posts.index');
     }
 
+    public function testAuthFailed()
+    {
+        $this->call('POST', 'posts', [
+            '_token' => csrf_token(),
+        ]);
+        $this->assertRedirectedTo('auth/login');
+    }
+
     public function testCreatePostFails()
     {
-        Session::start();
+        $this->userLoggedIn();
+
         $this->call('POST', 'posts', [
             '_token' => csrf_token(),
         ]);
@@ -64,5 +78,10 @@ class PostControllerTest extends TestCase {
     {
         $this->call('POST', 'posts');
         $this->assertResponseStatus(500);
+    }
+
+    protected function userLoggedIn()
+    {
+        $this->be(new User(['email' => 'jaceju@gmail.com']));
     }
 }

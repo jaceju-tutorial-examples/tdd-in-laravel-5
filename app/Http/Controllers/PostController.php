@@ -11,6 +11,7 @@ class PostController extends Controller {
 
     public function __construct(PostRepository $post)
     {
+        $this->middleware('auth', ['except' => 'index']);
         $this->post = $post;
     }
 

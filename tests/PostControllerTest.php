@@ -25,7 +25,7 @@ class PostControllerTest extends TestCase {
             ->once()
             ->andReturn('foo');
 
-		$this->call('GET', '/');
+		$this->call('GET', '/posts');
 		$this->assertResponseOk();
 
         // 應取得 posts 變數

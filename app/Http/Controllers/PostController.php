@@ -2,7 +2,6 @@
 
 use App\Http\Requests\PostRequest;
 use App\Repositories\PostRepository;
-use App\Http\Requests;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Redirect;
 

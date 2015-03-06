@@ -10,6 +10,12 @@ class AuthControllerTest extends TestCase
         Session::start();
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+        parent::tearDown();
+    }
+
     public function testLoginInvalidInput()
     {
         $this->call('POST', 'auth/login', [
@@ -57,7 +63,7 @@ class AuthControllerTest extends TestCase
     protected function doesLoginPass($pass)
     {
         // Mock Auth Guard Object
-        $guardMock = Mockery::mock('Illuminate\Auth\Guard');
+        $guardMock = Mockery::mock('Illuminate\Contracts\Auth\Guard');
         $this->app->instance('Illuminate\Contracts\Auth\Guard', $guardMock);
 
         /* @see App\Http\Middleware\RedirectIfAuthenticated */

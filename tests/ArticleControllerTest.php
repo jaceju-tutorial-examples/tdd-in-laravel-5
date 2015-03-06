@@ -19,6 +19,7 @@ class ArticleControllerTest extends TestCase {
     public function tearDown()
     {
         Mockery::close();
+        parent::tearDown();
     }
 
 	public function testArticleList()

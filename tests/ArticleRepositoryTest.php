@@ -37,6 +37,7 @@ class ArticleRepositoryTest extends TestCase
     {
         $this->resetDatabase();
         $this->repository = null;
+        parent::tearDown();
     }
 
     public function testFetchLatest10Posts()

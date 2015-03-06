@@ -13,6 +13,7 @@ class ArticleTest extends TestCase
     public function tearDown()
     {
         $this->resetDatabase();
+        parent::tearDown();
     }
 
     public function testEmptyResult()

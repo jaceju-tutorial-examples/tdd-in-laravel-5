@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Post</title>
+    <title>Create Article</title>
 </head>
 <body>
 
-{!! Form::open(['route' => 'posts.index']) !!}
+{!! Form::open(['route' => 'repository.index']) !!}
 <p>
     Title: {!! Form::text('title') !!}
 </p>
@@ -14,7 +14,7 @@
     Body: {!! Form::textarea('body') !!}
 </p>
 <p>
-    {!! Form::submit('Create Post') !!}
+    {!! Form::submit('Create Article') !!}
 </p>
 {!! Form::close() !!}
 

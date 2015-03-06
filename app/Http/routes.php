@@ -4,7 +4,7 @@ Route::get('/', function () {
     return 'Home Page';
 });
 
-Route::resource('posts', 'PostController');
+Route::resource('articles', 'ArticleController');
 
 Route::controllers([
    'auth' => 'Auth\AuthController',

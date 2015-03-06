@@ -1,6 +1,6 @@
 <?php namespace App\Http\Requests;
 
-class PostRequest extends Request
+class ArticleRequest extends Request
 {
 
     /**

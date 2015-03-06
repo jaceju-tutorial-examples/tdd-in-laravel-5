@@ -1,25 +1,25 @@
 <?php
 
-use App\Repositories\PostRepository;
-use App\Post;
+use App\Repositories\ArticleRepository;
+use App\Article;
 
-class PostRepositoryTest extends TestCase
+class ArticleRepositoryTest extends TestCase
 {
-    const POST_COUNT = 100;
+    const ARTICLE_COUNT = 100;
 
     /**
-     * @var PostRepository
+     * @var ArticleRepository
      */
-    protected $posts = null;
+    protected $repository = null;
 
     /**
      * 預塞資料供測試用
      */
     protected function seedData()
     {
-        for ($i = 1; $i <= self::POST_COUNT; $i ++) {
-            Post::create([
-                'title' => 'subject ' . $i,
+        for ($i = 1; $i <= self::ARTICLE_COUNT; $i ++) {
+            Article::create([
+                'title' => 'title ' . $i,
                 'body'  => 'body ' . $i,
             ]);
         }
@@ -30,24 +30,24 @@ class PostRepositoryTest extends TestCase
         parent::setUp();
         $this->initDatabase();
         $this->seedData();
-        $this->posts = new PostRepository();
+        $this->repository = new ArticleRepository();
     }
 
     public function tearDown()
     {
         $this->resetDatabase();
-        $this->posts = null;
+        $this->repository = null;
     }
 
     public function testFetchLatest10Posts()
     {
-        $posts = $this->posts->latest10();
+        $posts = $this->repository->latest10();
         $this->assertEquals(10, count($posts));
 
         // 確認是從 100 ~ 91 倒數
         $i = 100;
         foreach ($posts as $post) {
-            $this->assertEquals('subject ' . $i, $post->title);
+            $this->assertEquals('title ' . $i, $post->title);
             $this->assertEquals('body ' . $i, $post->body);
             $i -= 1;
         }
@@ -55,13 +55,13 @@ class PostRepositoryTest extends TestCase
 
     public function testCreatePost()
     {
-        $latestId = self::POST_COUNT + 1;
+        $latestId = self::ARTICLE_COUNT + 1;
 
-        $post = $this->posts->create([
-            'title' => 'subject ' . $latestId,
+        $article = $this->repository->create([
+            'title' => 'title ' . $latestId,
             'body'  => 'body ' . $latestId,
         ]);
 
-        $this->assertEquals(self::POST_COUNT + 1, $post->id);
+        $this->assertEquals(self::ARTICLE_COUNT + 1, $article->id);
     }
 }
